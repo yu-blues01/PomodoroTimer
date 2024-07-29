@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- メタ情報の設定 -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ 'Breaking Time' if is_break else 'Working Time' }}</title>
+    <!-- CSSファイルのリンク -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/circular-progress.css') }}">
+    <link rel="stylesheet" href="static/css/modalWindow.css">
+    <!-- JavaScriptファイルのリンク -->
+    <script src="{{ url_for('static', filename='javascript/timer.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='javascript/audioControl.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='javascript/modalWindow.js') }}" defer></script>
+    <!-- ファビコンの設定 -->
+    <link rel="icon" href="static/images/favicon.ico" type="image/favicon">
+</head>
+<body class="{{ 'break' if is_break else 'work' }}">
+    <!-- ボディのクラスを休憩中または作業中に設定 -->
+    <div class="container">
+        <button id="creditBtn"> <img src="../static/images/info.png" width="32" height="32"> </button>
+
+        <div id="creditModal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>ポモドーロタイマーとは？</h2>
+            <p><span>ポモドーロタイマーは、作業効率を高めるための</span><span>時間管理ツールです。集中作業と休憩を繰り返す</span><span>ことで集中力を維持し、生産性を向上させること</span><span>を目的とした時間管理術「ポモドーロ・テクニック」</span><span>に基づいています。</p>
+            <br>
+            <h2>Credits</h2>
+            <h3>アイコン</h3>
+            <a href="https://icon-rainbow.com/">Icon-rainbow</a><br>
+            <a href="https://icooon-mono.com/">ICOON MONO</a><br>
+            <h3>SE</h3>
+            <a href="https://otologic.jp/">OtoLogic</a><br>
+            <a href="https://dova-s.jp/">DOVA-SYNDROME</a><br>
+            <a href="https://pocket-se.info/">ポケットサウンド/効果音素材</a><br>
+            <h3>BGM</h3>
+            <p>曲名 『Barely』『Colors』『Epoch』『Fairy Lights』『Notion』『Orange』『Reflection』『Room』『Sanctuary』</p>
+            <p>作曲 RYU ITO　<a href="https://ryu110.com/">https://ryu110.com/</a></p>
+            
+          </div>
+        </div>
+        <!-- タイトル部分 -->
+        <div class="title">
+            <h1><span>{{ 'Breaking' if is_break else 'Working' }}</span><br><span> Session</span></h1>
+        </div>
+        <!-- タイマーコンポーネント -->
+        <div class="timer_component">
+            <p>Session: {{ current_session }} / {{ circle_time }}</p>
+            <!-- 円形プログレスバー -->
+            <div class="circular-progress" data-time="{{ time }}">
+                <svg class="circular-progress-svg" width="200" height="200">
+                    <!-- 背景円 -->
+                    <circle class="circular-progress-circle" cx="100" cy="100" r="90" fill="none" stroke="#ddd" stroke-width="10" stroke-opacity="0.25"/>
+                    <!-- プログレス円 -->
+                    <circle class="circular-progress-value" cx="100" cy="100" r="90" fill="none" stroke="#c0c0c0" stroke-width="10" stroke-dasharray="565.48" stroke-dashoffset="565.48"/>
+                </svg>
+                <!-- タイマー表示部分 -->
+                <div class="circular-progress-text">
+                    <span id="timer"></span>
+                </div>
+            </div>
+            <!--<div id="timer" data-time="{{ time }}"></div>-->
+            <p id="status">作業中</p>
+            <!-- ステータス表示 -->
+            <button  class="circle" id="pauseButton"><img id="pauseButtonIcon"  src="../static/images/pause.png" width="32" height="32"></button>
+            <!-- ホームに戻るボタン -->
+            <button class="circle" onclick="location.href='{{ url_for('home') }}'"><img  src="../static/images/reset.png"  width="32" height="32"></button>
+            <!-- オーディオコントロール -->
+            <div class="audio-controls">
+                <label for="bgm">BGM:&emsp;</label>
+                <div class="selectdiv">
+                <!-- BGM選択セレクトボックス -->
+                    <select id="bgm" name="bgm">
+                        <option value="なし" {% if bgm == 'なし' %}selected{% endif %}>なし</option>
+                        <option value="Barely" {% if bgm == 'Barely' %}selected{% endif %}>Barely</option>
+                        <option value="Colors" {% if bgm == 'Colors' %}selected{% endif %}>Colors</option>
+                        <option value="Epoch" {% if bgm == 'Epoch' %}selected{% endif %}>Epoch</option>
+                        <option value="Fairy Lights" {% if bgm == 'Fairy Lights' %}selected{% endif %}>Fairy Lights</option>
+                        <option value="Notion" {% if bgm == 'Notion' %}selected{% endif %}>Notion</option>
+                        <option value="Orange" {% if bgm == 'Orange' %}selected{% endif %}>Orange</option>
+                        <option value="Reflection" {% if bgm == 'Reflection' %}selected{% endif %}>Reflection</option>
+                        <option value="Room" {% if bgm == 'Room' %}selected{% endif %}>Room</option>
+                        <option value="Sanctuary" {% if bgm == 'Sanctuary' %}selected{% endif %}>Sanctuary</option>
+                    </select>
+                </div>
+                <label for="volume">音量:&emsp;</label>
+                <!-- 音量調節スライダー -->
+                <input type="range" id="volume" name="volume" min="0" max="1" step="0.1" value="{{ volume }}">
+            </div>
+            <div class="home_form">
+                <label for="seOnOff"> 切り替わり時のSE:&emsp;&emsp;&emsp;</label>
+                <label class="toggle-button">
+                    <input type="checkbox" id="seOnOff" name="seOnOff" {% if seOnOff %}checked{% endif %}>
+                    <span id="toggleOnOff" data-off="　off" data-on="on　."></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <!-- BGM再生用のaudio要素 -->
+    <audio id="audioPlayer" loop></audio>
+    <!-- SE再生用のaudio要素 -->
+    <audio id="sePlayer" src="{{ url_for('static', filename='se/Time_Signal-Beep01-1(Long).mp3') }}"></audio>
+</body>
+</html>

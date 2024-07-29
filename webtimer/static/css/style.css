@@ -1,0 +1,286 @@
+body {
+    display: flex; /* フレックスボックスレイアウトを使用 */
+    font-family: Arial, sans-serif; /* フォントファミリーをArialとsans-serifに設定 */
+    justify-content: center; /* 子要素を水平方向に中央揃え */
+    align-items: center; /* 子要素を垂直方向に中央揃え */
+    margin: 0; /* 外側の余白をゼロに設定 */
+    padding: 0; /* 内側の余白をゼロに設定 */
+    width: 100%; /* 幅を100%に設定 */
+    min-height: 100vh; /* 最小高さをビューの高さの100%に設定 */
+    /*height: 100vh; /* 高さをビューの高さの100%に設定 */
+    transition: background-color 1.0s ease; /* 背景色の変更時に0.5秒のトランジション効果を適用 */
+    /*background: linear-gradient(-225deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 100%);*/
+    background-image: linear-gradient(0deg, rgba(243, 196, 170, 1), rgba(233, 120, 159, 1) 22%, rgba(228, 81, 154, 1) 50%, rgba(149, 83, 190, 1) 83%); /* グラデーション背景 */
+}
+
+.container {
+    text-align: center;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+    background:rgba(0,0,0,0)
+}
+
+.title {                    /* ロゴ部分の指定 */
+    text-align:  center;    /* 文字を中央揃え */
+    padding: 10px;          /* 余白指定 */
+    color:  #fff;           /* 文字の色指定 */
+    border:  solid 1px #fff;/* 枠線指定 */
+    margin:  0 auto;        /* 中央寄せ */
+    font-size: 28px;        /* 文字サイズ指定 */
+}
+
+span {
+　   display: inline-block;
+}
+
+.home_form {
+    display: flex;
+    text-align:  center;    /* 文字を中央揃え */
+    padding: 5px;          /* 余白指定 */
+    color:  #fff;           /* 文字の色指定 */
+    justify-content: center; /* 子要素を水平方向に中央揃え */
+    align-items: center; /* 子要素を垂直方向に中央揃え */
+}
+
+label {
+    font-size: 20px;        /* 文字サイズ指定 */
+}
+
+input {
+    background-color: rgba(255,255,255,.2);
+    color: #fff;
+    border: 1px solid #fff;  /* 枠線 */
+    border-radius: 0.30em;   /* 角丸 */
+    /*padding: 0.6em 0.5em;*/
+}
+
+input[type="number"] {
+    text-align:  left;
+    font-size: 24px;
+    width: 70px;             /* 幅を調整 */
+    height: 50px;            /* 高さを調整 */
+}
+
+.number-input::-webkit-inner-spin-button,
+.number-input::-webkit-outer-spin-button {
+    height: 50px; /* スピンボタンの高さを入力フィールドと合わせる */
+    width: 20px; /* スピンボタンの幅を指定 */
+    margin: 0; /* スピンボタンのマージンをリセット */
+}
+
+.work {
+    background-image: linear-gradient(180deg, rgba(255, 124, 0, 1), rgba(255, 182, 1, 1) 72%, rgba(255, 202, 1, 1) 90%, rgba(255, 222, 2, 1) 98%, rgba(255, 250, 3, 1));　/* グラデーション背景 */
+}
+
+.break {
+    background-image: linear-gradient(180deg, rgba(0, 157, 91, 1), rgba(1, 208, 23, 1) 0%, rgba(1, 213, 105, 1) 51%, rgba(1, 216, 156, 1) 91%, rgba(0, 220, 214, 1));　/* グラデーション背景 */
+}
+
+.timer_component{
+    text-align: center;    /* 文字を中央揃え */
+    padding: 10px;          /* 余白指定 */
+    color:  #fff;           /* 文字の色指定 */
+    justify-content: center; /* 子要素を水平方向に中央揃え */
+    align-items: center; /* 子要素を垂直方向に中央揃え */
+}
+
+p {
+    font-size: 18px;        /* 文字サイズ指定 */
+    padding: 10px;          /* 余白指定 */
+}
+
+h3 {
+    padding: 10px;          /* 余白指定 */
+}
+
+#timer {
+    font-size: 60px;
+    margin: 1rem 0;
+}
+
+button {
+    margin: 0.5rem;
+    padding: 0.5rem 3rem;
+    font-size: 1rem;
+    cursor: pointer;
+    color:  #fff;           /* 文字の色指定 */
+    background-color: rgb(0 0 0 / 0%);
+}
+
+button:hover {
+    background-color: rgb(0 0 0 / 10%);
+}
+
+.circle {
+  border-radius: 50%;
+  /*line-height: 100px;*/
+  width: 70px;
+  height:70px;
+  padding: 0;
+  border: 2px solid rgba(255,255,255,.7);
+}
+
+.square {
+  border-radius: 30%;
+  /*line-height: 100px;*/
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 2px solid rgba(255,255,255,.5);
+}
+
+select {
+    border: 2px rgba(255,255,255,.5);
+}
+
+.toggle-button {
+    margin: 20px;
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 30px;
+    border-radius: 50px;
+    background-color: #dddddd;
+    cursor: pointer;
+    transition: background-color .4s;
+}
+
+.toggle-button:has(:checked) {
+    background-color: #4bd865;
+}
+
+.toggle-button::after {
+    position: absolute;
+    top: 2.5px;
+    left: 2.5px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgb(0 0 0 / 20%);
+    background-color: #fff;
+    content: '';
+    transition: left .4s;
+}
+
+.toggle-button:has(:checked)::after {
+    left: 32px;
+}
+
+.toggle-button input {
+    display: none;
+}
+
+input[type="checkbox"] ~ span::after {
+    content: attr(data-off);
+}
+
+input[type="checkbox"]:checked ~ span::after {
+    content: attr(data-on);
+}
+
+.audio-controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap; /* 折り返しを防ぐ */
+    width: 100%; /* 幅を100%に設定 */
+}
+
+.audio-controls input[type="range"] {
+    vertical-align: middle;
+    margin: 40px 30px;
+}
+
+.sns-share {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#shareText {
+    border:  solid 1px #fff;/* 枠線指定 */
+    width: 80%;
+    height: 60px;
+    margin-bottom: 10px;
+    padding: 5px;
+    resize: none;
+    color: #fff;
+}
+
+#copyButton {
+    padding: 8px 8px;
+    background-color: rgb(0 0 0 / 5%);
+    color: white;
+    border:  solid 1px #fff;/* 枠線指定 */
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#copyButton:hover {
+    background-color: rgb(0 0 0 / 20%);
+}
+
+.share-button {
+    border-radius: 50%;
+    width: 60px;
+    height:60px;
+    padding: 10px;
+    /*border: 2px solid rgba(255,255,255,.7);*/
+}
+
+.selectdiv {
+  position: relative;
+  /*Don't really need this just for demo styling*/
+  
+  /*float: left;*/
+  min-width: 120px;
+  margin: 5px 10px;
+}
+
+/* IE11 hide native button (thanks Matt!) */
+select::-ms-expand {
+    display: none;
+}
+
+.selectdiv:after {
+  content: '<>';
+  font: 17px "Consolas", monospace;
+  color: #fff;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  right: 11px;
+  /*Adjust for position however you want*/
+  
+  top: 18px;
+  padding: 0 0 2px;
+  border-bottom: 1px solid #808080;
+  /*left line */
+  
+  position: absolute;
+  pointer-events: none;
+}
+
+.selectdiv select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* Add some styling */
+  
+  display: block;
+  width: 100%;
+  max-width: 160px;
+  height: 50px;
+  float: right;
+  margin: 5px 0px;
+  padding: 0px 10px;
+  font-size: 16px bold;
+  line-height: 1.75;
+  color: #fff;
+  background-color: rgb(255 255 255 / 0%);
+  background-image: none;
+  border: 2px solid #fff;
+  -ms-word-break: normal;
+  word-break: normal;
+}

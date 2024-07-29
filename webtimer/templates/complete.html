@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- メタ情報の設定 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <!-- CSSファイルのリンク -->
+    <link rel="stylesheet" href="static/css/reset.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/modalWindow.css">
+    <!-- JavaScriptファイルのリンク -->
+    <script src="{{ url_for('static', filename='javascript/validate.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/copyText.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='javascript/shareToSNS.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='javascript/modalWindow.js') }}" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var audio = document.getElementById('sePlayer');
+            audio.volume = 0.2; // 音量を50%に設定
+            sePlayer.play();
+        });
+    </script>
+    <!-- ファビコンの設定 -->
+    <link rel="icon" href="static/images/favicon.ico" type="image/favicon">
+</head>
+<body>
+    <div class="container">
+        <button id="creditBtn"> <img src="../static/images/info.png" width="32" height="32"> </button>
+
+        <div id="creditModal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>ポモドーロタイマーとは？</h2>
+            <p><span>ポモドーロタイマーは、作業効率を高めるための</span><span>時間管理ツールです。集中作業と休憩を繰り返す</span><span>ことで集中力を維持し、生産性を向上させること</span><span>を目的とした時間管理術「ポモドーロ・テクニック」</span><span>に基づいています。</p>
+            <br>
+            <h2>Credits</h2>
+            <h3>アイコン</h3>
+            <a href="https://icon-rainbow.com/">Icon-rainbow</a><br>
+            <a href="https://icooon-mono.com/">ICOON MONO</a><br>
+            <h3>SE</h3>
+            <a href="https://otologic.jp/">OtoLogic</a><br>
+            <a href="https://dova-s.jp/">DOVA-SYNDROME</a><br>
+            <a href="https://pocket-se.info/">ポケットサウンド/効果音素材</a><br>
+            <h3>BGM</h3>
+            <p>曲名 『Barely』『Colors』『Epoch』『Fairy Lights』『Notion』『Orange』『Reflection』『Room』『Sanctuary』</p>
+            <p>作曲 RYU ITO　<a href="https://ryu110.com/">https://ryu110.com/</a></p>
+            
+          </div>
+        </div>
+        <!-- タイトル部分 -->
+        <div class="title">
+            <h1><span>Pomodoro</span><span> Complete!</span></h1>
+        </div>
+        <br>
+        <div class="home_form">
+            <br>
+            <label for="hometext">Congratulations!</label>
+        </div>
+        <div class="home_form">
+            <label for="hometext">あなたの頑張りをみんなにアピールしましょう！</label>
+        </div>
+        <br>
+        <div class="home_form">
+            <label for="hometext">Share To SNS</label>
+        </div>
+        <div class="sns-share">
+            <textarea id="shareText" readonly>今日は{{ total_work_time }}分間集中して作業しました！ #Pomodoro Timer</textarea>
+            <button id="copyButton"><img src="{{ url_for('static', filename='images/copy.png') }}" width="20" height="20"></button>
+        </div>
+        <div class="share-buttons">
+            <button id="shareLine" class="share-button line"><i class="fab fa-line"></i><img src="{{ url_for('static', filename='images/LINE_Brand_icon.png') }}" width="30" height="30"></button>
+            <button id="shareTwitter" class="share-button twitter"><i class="fab fa-twitter"></i> <img src="{{ url_for('static', filename='images/x-logo/logo-white.png') }}" width="30" height="30"></button>
+            <button id="shareFacebook" class="share-button facebook"><i class="fab fa-facebook-f"></i><img src="{{ url_for('static', filename='images/Facebook Brand Asset Pack/Logo/Primary Logo/Facebook_Logo_Primary.png') }}" width="30" height="30"></button>
+        </div>
+        <button class="circle" type="submit" id="timerReStart" onclick="location.href='{{ url_for('home') }}'"> <img src="{{ url_for('static', filename='images/reload.png') }}" width="32" height="32"></button>
+    </div>
+    <audio id="sePlayer" src="{{ url_for('static', filename='se/栄光のファンファーレ.mp3') }}"></audio>
+</body>
+</html>

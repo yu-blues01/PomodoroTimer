@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <!-- メタ情報の設定 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <!-- CSSファイルのリンク -->
+    <link rel="stylesheet" href="static/css/reset.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/modalWindow.css">
+    <!-- JavaScriptファイルのリンク -->
+    <script src="{{ url_for('static', filename='javascript/validate.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascript/audioSetup.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='javascript/modalWindow.js') }}" defer></script>
+    <!-- ファビコンの設定 -->
+    <link rel="icon" href="static/images/favicon.ico" type="image/favicon">
+        
+    <!--<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Modaal/0.4.4/css/modaal.min.css">
+    <link rel="stylesheet" type="text/css" href="css/9-6-3.css">-->
+</head>
+<body>
+    <div class="container">
+        <button id="creditBtn"> <img src="../static/images/info.png" width="32" height="32"> </button>
+
+        <div id="creditModal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>ポモドーロタイマーとは？</h2>
+            <p><span>ポモドーロタイマーは、作業効率を高めるための</span><span>時間管理ツールです。集中作業と休憩を繰り返す</span><span>ことで集中力を維持し、生産性を向上させること</span><span>を目的とした時間管理術「ポモドーロ・テクニック」</span><span>に基づいています。</p>
+            <br>
+            <h2>Credits</h2>
+            <h3>アイコン</h3>
+            <a href="https://icon-rainbow.com/">Icon-rainbow</a><br>
+            <a href="https://icooon-mono.com/">ICOON MONO</a><br>
+            <h3>SE</h3>
+            <a href="https://otologic.jp/">OtoLogic</a><br>
+            <a href="https://dova-s.jp/">DOVA-SYNDROME</a><br>
+            <a href="https://pocket-se.info/">ポケットサウンド/効果音素材</a><br>
+            <h3>BGM</h3>
+            <p>曲名 『Barely』『Colors』『Epoch』『Fairy Lights』『Notion』『Orange』『Reflection』『Room』『Sanctuary』</p>
+            <p>作曲 RYU ITO　<a href="https://ryu110.com/">https://ryu110.com/</a></p>
+            
+          </div>
+        </div>
+        <!-- タイトル部分 -->
+        <div class="title">
+            <h1><span>Pomodoro</span><span> Timer</span></h1>
+        </div>
+        <br>
+        <!-- フォームの開始 -->
+        <form name="inputForm" action="/" onsubmit="return validateForm()" method="POST">
+            <!-- 作業時間の入力欄 -->
+            <div class="home_form">
+                <label for="work_time_label">作業時間(1~50分): &emsp;&emsp;&emsp;&emsp;</label>
+                <input type="number" id="workMin_value" name="work_time" min="1" max="50" required value="{{ work_time }}">
+                <label for="min1">&emsp;分</label>
+            </div>
+            
+            <!-- 休憩時間の入力欄 -->
+            <div class="home_form">
+                <label for="break_time_label">休憩時間(1~10分): &emsp;&emsp;&emsp;&emsp;</label>
+                <input type="number" id="breakMin_value" name="break_time" min="1" max="10" required value="{{ break_time }}">
+                <label for="min2">&emsp;分</label>
+            </div>
+            
+            <!-- BGM選択の入力欄 -->
+            <div class="home_form">
+                <label for="circle_time_label">セッション回数(1~12回): &emsp;</label>
+                <input type="number" id="sessionNum_value" name="circle_time" min="1" max="12" required value="{{ circle_time }}">
+                <label for="min1">&emsp;回</label>
+            </div>
+            
+            <div class="home_form">
+                <label for="bgm">BGM選択: &emsp;&emsp;&emsp;</label>
+                <div class="selectdiv">
+                    <select id="bgm" name="bgm">
+                        <!-- BGMのオプション -->
+                        <option value="なし" {% if bgm == 'なし' %}selected{% endif %}>なし</option>
+                        <option value="Barely" {% if bgm == 'Barely' %}selected{% endif %}>Barely</option>
+                        <option value="Colors" {% if bgm == 'Colors' %}selected{% endif %}>Colors</option>
+                        <option value="Epoch" {% if bgm == 'Epoch' %}selected{% endif %}>Epoch</option>
+                        <option value="Fairy Lights" {% if bgm == 'Fairy Lights' %}selected{% endif %}>Fairy Lights</option>
+                        <option value="Notion" {% if bgm == 'Notion' %}selected{% endif %}>Notion</option>
+                        <option value="Orange" {% if bgm == 'Orange' %}selected{% endif %}>Orange</option>
+                        <option value="Reflection" {% if bgm == 'Reflection' %}selected{% endif %}>Reflection</option>
+                        <option value="Room" {% if bgm == 'Room' %}selected{% endif %}>Room</option>
+                        <option value="Sanctuary" {% if bgm == 'Sanctuary' %}selected{% endif %}>Sanctuary</option>
+                    </select>
+                </div>
+                <!-- テスト再生ボタン -->
+                <button type="button" id="testAudio" class="square"><img id="testAudioIcon"  src="../static/images/note.png" width="19" height="19"></button>
+            </div>
+            
+            <!-- 音量調整の入力欄 -->
+            <div class="home_form">
+                <label for="volume">音量:&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</label>
+                <input type="range" id="volume" name="volume" min="0" max="1" step="0.1" value="{{ volume }}">
+            </div>
+            <!-- seのonoff -->
+            <div class="home_form">
+                <label for="seOnOff"> 切り替わり時のSE:&emsp;&emsp;&emsp;</label>
+                <label class="toggle-button">
+                    <input type="checkbox" id="seOnOff" name="seOnOff"　{% if seOnOff %}checked{% endif %}>
+                    <span id="toggleOnOff" data-off="　off" data-on="on　."></span>
+                </label>
+            </div>
+            <br>
+            <!-- 送信ボタン -->
+            <button class="circle" type="submit" id="timerStart"> <img src="../static/images/start.png" width="32" height="32"> </button>
+        </form>
+    </div>
+    <!-- BGM再生用のaudio要素 -->
+    <audio id="audioPlayer"></audio>
+</body>
+</html>

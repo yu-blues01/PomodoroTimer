@@ -1,0 +1,37 @@
+.circular-progress {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.circular-progress-svg {
+    transform: rotate(-90deg);
+}
+
+.circular-progress-circle {
+    stroke-linecap: round;
+}
+
+.circular-progress-value {
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s ease;
+}
+
+.circular-progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+body.work .circular-progress-value {
+    /*stroke: #00ff00; /* 作業中の色 */
+    stroke: #fcfbb6;
+}
+
+body.break .circular-progress-value {
+    stroke: #a9fcfa; /* 休憩中の色 */
+}
