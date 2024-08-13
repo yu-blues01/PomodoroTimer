@@ -284,3 +284,7 @@ select::-ms-expand {
   -ms-word-break: normal;
   word-break: normal;
 }
+
+select option {
+  background-color: rgb(0 0 0 / 70%); /* 任意の色を指定 */
+}
