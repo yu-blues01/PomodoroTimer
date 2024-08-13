@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() { // DOMが完全にロ
     
     // BGMのソースを定義
     const audioSources = {
+        'なし': '/static/music/muon.mp3',
         'Barely': '/static/music/Barely.mp3',
         'Colors': '/static/music/Colors.mp3',
         'Epoch': '/static/music/Epoch.mp3',
